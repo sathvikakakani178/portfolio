@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import { ArrowUpRight, GraduationCap, Briefcase } from 'lucide-react'
+import { ArrowUpRight, GraduationCap, Briefcase, ExternalLink } from 'lucide-react'
 
 type Role = 'Dev' | 'Testing' | 'UI' | 'Dev & Testing' | 'UI Support' | 'Full Stack'
 type Source = 'sailotech' | 'college'
@@ -13,6 +13,8 @@ interface Project {
   highlight?: boolean
   product?: string
   source: Source
+  liveUrl?: string
+  githubUrl?: string
 }
 
 const roleColors: Record<Role, string> = {
@@ -110,21 +112,27 @@ const collegeProjects: Project[] = [
     tags: ['Python', 'FastAPI', 'React', 'TypeScript', 'scikit-learn', 'NLP'],
     highlight: true,
     source: 'college',
+    liveUrl: 'https://ai-crime-classification-system.vercel.app',
+    githubUrl: 'https://github.com/sathvikakakani178/AI-Crime-Classification-System',
   },
   {
-    name: 'RAG-Powered Knowledge Retrieval',
-    description: 'Full-stack Retrieval-Augmented Generation system enabling intelligent document-based question answering. Built a React + TypeScript frontend with dynamic chat interfaces, semantic retrieval workflows, and modular production-ready architecture separating frontend, AI inference, and data layers.',
+    name: 'DocMind — RAG Document Analyzer',
+    description: 'Full-stack RAG system for intelligent PDF question answering. Upload any document and chat with it using AI — powered by FAISS vector store for semantic search, sentence-transformers for embeddings, and Groq Llama3 for answers with source citations and page references.',
     role: 'Full Stack',
-    tags: ['LLM', 'RAG', 'React', 'TypeScript', 'Vector DB', 'Python'],
+    tags: ['Python', 'FastAPI', 'React', 'TypeScript', 'FAISS', 'RAG', 'Groq'],
     highlight: true,
     source: 'college',
+    liveUrl: 'https://doc-mind-xi.vercel.app',
+    githubUrl: 'https://github.com/sathvikakakani178/DocMind',
   },
   {
     name: 'StressShield',
-    description: 'Medical-grade stress classification system using a Random Forest model (200 estimators) trained on physiological vitals — heart rate, blood pressure, and sleep patterns. Features a 3-tier stress classification engine with Streamlit dashboard, interactive Plotly charts, and a modular architecture with separate classifier, validator, and insights engine.',
+    description: 'Medical-grade stress detection platform using a GradientBoosting ML model trained on physiological vitals — heart rate, blood pressure, and sleep patterns. Features 4-level stress classification, personalised recommendations, trend dashboard with recharts, and CSV export.',
     role: 'Full Stack',
-    tags: ['Python', 'scikit-learn', 'Streamlit', 'Plotly', 'Pandas', 'ML'],
+    tags: ['Python', 'FastAPI', 'React', 'TypeScript', 'scikit-learn', 'ML'],
     source: 'college',
+    liveUrl: 'https://stress-shield.vercel.app',
+    githubUrl: 'https://github.com/sathvikakakani178/StressShield',
   },
 ]
 
@@ -160,7 +168,7 @@ export default function Projects() {
           <span className="gradient-text">shipped.</span>
         </h2>
         <p className="text-subtle font-body text-sm mt-4">
-          Professional work at Sailotech + personal college projects.
+          Professional work at Sailotech + personal college projects — all live in production.
         </p>
       </div>
 
@@ -234,6 +242,26 @@ export default function Projects() {
                 <span key={tag} className="text-xs font-mono text-subtle/60 bg-muted/40 px-2 py-1">{tag}</span>
               ))}
             </div>
+
+            {/* Live links for college projects */}
+            {(project.liveUrl || project.githubUrl) && (
+              <div className="flex gap-3 pt-1">
+                {project.liveUrl && (
+                  <a href={project.liveUrl} target="_blank" rel="noreferrer"
+                    className="flex items-center gap-1.5 text-xs font-mono text-accent hover:text-accent/80 transition-colors">
+                    <ExternalLink className="w-3 h-3" />
+                    Live Demo
+                  </a>
+                )}
+                {project.githubUrl && (
+                  <a href={project.githubUrl} target="_blank" rel="noreferrer"
+                    className="flex items-center gap-1.5 text-xs font-mono text-subtle hover:text-text transition-colors">
+                    <ExternalLink className="w-3 h-3" />
+                    GitHub
+                  </a>
+                )}
+              </div>
+            )}
 
             {/* Source badge */}
             <div className="flex items-center gap-2 pt-1 border-t border-border/50">
